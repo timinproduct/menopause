@@ -25,8 +25,14 @@ export function PhoneFrame({ children }) {
         overflow: 'hidden',
         position: 'relative',
         background: T.cream,
+        display: 'flex',
+        flexDirection: 'column',
       }}>
-        {children}
+        {/* status bar safe area — keeps content below the notch */}
+        <div style={{ height: 44, flexShrink: 0 }} />
+        <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+          {children}
+        </div>
       </div>
     </div>
   );

@@ -34,9 +34,6 @@ export function OB03NameAge({ onNext, onBack, userData, updateUser }) {
               onChange={e => updateUser({ name: e.target.value })}
               autoComplete="given-name"
             />
-            {!userData.name && (
-              <span style={{ display: 'inline-block', width: 1.2, height: 22, background: T.terracottaDeep, marginLeft: 2, flexShrink: 0, animation: 'themaka-blink 1.1s infinite' }}/>
-            )}
           </div>
         </div>
 

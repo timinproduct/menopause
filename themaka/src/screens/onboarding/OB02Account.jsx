@@ -38,9 +38,6 @@ export function OB02Account({ onNext, onBack, userData, updateUser }) {
               onChange={e => updateUser({ email: e.target.value })}
               autoComplete="email"
             />
-            {!userData.email && (
-              <span style={{ display: 'inline-block', width: 1.2, height: 18, background: T.terracottaDeep, marginLeft: 2, flexShrink: 0, animation: 'themaka-blink 1.1s infinite' }}/>
-            )}
           </div>
         </div>
 
