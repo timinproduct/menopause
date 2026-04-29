@@ -1,0 +1,11 @@
+# Private Claude Code config
+.claude/
+
+# Design source files (not needed for deployment)
+design-bundle/
+
+# Copyrighted book PDFs in knowledge base
+themaka/knowledge_base/*.pdf
+
+# Node modules (also excluded in themaka/.gitignore)
+node_modules/

@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@300;400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #f0eee9;
+  font-family: 'Work Sans', system-ui, sans-serif;
+  color: #3D3328;
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font-family: inherit; }
+em { font-style: italic; }
+
+@keyframes themaka-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Range input — hide all native chrome; visual chrome rendered in JSX */
+input[type='range'].themaka-range {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Real text inputs styled to match design */
+input.themaka-text {
+  outline: none;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  color: inherit;
+  width: 100%;
+  padding: 0;
+}
