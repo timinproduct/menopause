@@ -16,7 +16,7 @@ export function wakeLabel(totalMinutes) {
 }
 
 export function calcPhase(day, month, year) {
-  const today = new Date(2026, 3, 28); // April 28 2026 — fixed prototype date
+  const today = new Date();
   const last = new Date(year, month, day);
   const diffMs = today - last;
   const dayNum = Math.max(1, Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1);
@@ -43,7 +43,7 @@ export function formatDate(day, month, year) {
 }
 
 export function daysAgo(day, month, year) {
-  const today = new Date(2026, 3, 28);
+  const today = new Date();
   const last = new Date(year, month, day);
   return Math.floor((today - last) / (1000 * 60 * 60 * 24));
 }

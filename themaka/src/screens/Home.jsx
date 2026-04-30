@@ -1,13 +1,22 @@
+import { useNavigate } from 'react-router-dom';
 import { T, paperGrainUrl } from '../tokens';
 import { BotanicalSprig, PhaseWaves } from '../components/Botanicals';
 import { calcPhase, formatTime } from '../utils';
+import { useUser } from '../context/UserContext';
 
-export function Home({ onNavigate, userData }) {
+export function Home() {
+  const navigate = useNavigate();
+  const { userData } = useUser();
+
   const { phase, phaseLabel, label, dayNum } = calcPhase(
     userData.lastPeriodDay, userData.lastPeriodMonth, userData.lastPeriodYear
   );
-  const name = userData.name || 'Mara';
+  const name = userData.name || 'there';
   const cyclePct = Math.min(((dayNum - 1) / 28) * 100, 100);
+
+  const now = new Date();
+  const dayName = now.toLocaleDateString('en-GB', { weekday: 'long' });
+  const dateStr = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
 
   const tips = {
     menstrual:  { text: 'Your body is shedding. Rest is productive today — iron-rich foods like lentils and leafy greens will support your energy.', tags: ['Lentils', 'Leafy greens', 'Rest'] },
@@ -33,7 +42,7 @@ export function Home({ onNavigate, userData }) {
       <div style={{ padding: '22px 28px 0', position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ fontSize: 11, letterSpacing: 2.4, textTransform: 'uppercase', color: T.inkMuted }}>
-            Monday · April 28
+            {dayName} · {dateStr}
           </span>
           <div style={{
             width: 34, height: 34, borderRadius: 17, background: T.sand,
@@ -77,7 +86,6 @@ export function Home({ onNavigate, userData }) {
           <PhaseWaves w={260} h={130} phase={phase}/>
         </div>
 
-        {/* Cycle track */}
         <div>
           <div style={{ height: 3, borderRadius: 2, background: T.sand, position: 'relative', overflow: 'visible' }}>
             <div style={{
@@ -130,7 +138,7 @@ export function Home({ onNavigate, userData }) {
       </div>
 
       <div style={{ flex: 1 }}/>
-      <HomeNav onNavigate={onNavigate} active="home"/>
+      <HomeNav navigate={navigate} active="home"/>
     </div>
   );
 }
@@ -154,12 +162,12 @@ function GlanceCard({ label, value, accent }) {
   );
 }
 
-function HomeNav({ onNavigate, active }) {
+function HomeNav({ navigate, active }) {
   const items = [
-    { k: 'home',    label: 'Today',   icon: <circle cx="12" cy="12" r="4"/> },
-    { k: 'cycle',   label: 'Cycle',   icon: <><circle cx="12" cy="12" r="7"/><circle cx="16" cy="10" r="1.2" fill="currentColor"/></> },
-    { k: 'eat',     label: 'Eat',     icon: <path d="M8 4v16M16 4v8a3 3 0 0 0 3 3"/> },
-    { k: 'journal', label: 'Journal', icon: <path d="M6 4h10l2 2v14H6z M10 10h6 M10 14h4"/> },
+    { k: 'home',    label: 'Today',   path: '/home',         icon: <circle cx="12" cy="12" r="4"/> },
+    { k: 'cycle',   label: 'Cycle',   path: '/home',         icon: <><circle cx="12" cy="12" r="7"/><circle cx="16" cy="10" r="1.2" fill="currentColor"/></> },
+    { k: 'eat',     label: 'Eat',     path: '/home',         icon: <path d="M8 4v16M16 4v8a3 3 0 0 0 3 3"/> },
+    { k: 'journal', label: 'Journal', path: '/home',         icon: <path d="M6 4h10l2 2v14H6z M10 10h6 M10 14h4"/> },
   ];
   return (
     <nav style={{
@@ -169,7 +177,7 @@ function HomeNav({ onNavigate, active }) {
       {items.map(it => {
         const isActive = it.k === active;
         return (
-          <button key={it.k} onClick={() => onNavigate && onNavigate(it.k)}
+          <button key={it.k} onClick={() => navigate(it.path)}
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, border: 'none', background: 'transparent', cursor: 'pointer', padding: '4px 8px' }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
                  stroke={isActive ? T.terracottaDeep : T.inkMuted} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">

@@ -91,7 +91,8 @@ export function MiniCalendar({ selected, highlight = [], month = 3, year = 2026,
   for (let d = 1; d <= days; d++) cells.push(d);
   while (cells.length % 7) cells.push(null);
 
-  const today = { day: 28, month: 3, year: 2026 };
+  const _now = new Date();
+  const today = { day: _now.getDate(), month: _now.getMonth(), year: _now.getFullYear() };
   const isFuture = (d) => {
     if (year > today.year) return true;
     if (year === today.year && month > today.month) return true;

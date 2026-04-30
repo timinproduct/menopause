@@ -1,13 +1,22 @@
+import { useNavigate } from 'react-router-dom';
 import { T, paperGrainUrl } from '../tokens';
 import { BotanicalSprig } from '../components/Botanicals';
 import { calcPhase, formatTime } from '../utils';
+import { useUser } from '../context/UserContext';
 
-export function Notification({ onNavigate, userData }) {
-  const name = userData.name || 'Mara';
+export function Notification() {
+  const navigate = useNavigate();
+  const { userData } = useUser();
+
+  const name = userData.name || 'there';
   const wakeStr = formatTime(userData.wakeMinutes);
   const { phaseLabel, dayNum } = calcPhase(
     userData.lastPeriodDay, userData.lastPeriodMonth, userData.lastPeriodYear
   );
+
+  const now = new Date();
+  const dayName = now.toLocaleDateString('en-GB', { weekday: 'long' });
+  const dateStr = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
 
   return (
     <div style={{
@@ -26,7 +35,7 @@ export function Notification({ onNavigate, userData }) {
           {wakeStr.replace(' am','').replace(' pm','')}
         </div>
         <div style={{ fontSize: 12, letterSpacing: 2.4, textTransform: 'uppercase', marginTop: 8, opacity: 0.75 }}>
-          Monday · April 28
+          {dayName} · {dateStr}
         </div>
       </div>
 
@@ -85,7 +94,7 @@ export function Notification({ onNavigate, userData }) {
         </div>
 
         <div style={{ display: 'flex', gap: 8, marginTop: 14 }}>
-          <button onClick={() => onNavigate('home')} style={btnPrimary}>I'll have this</button>
+          <button onClick={() => navigate('/home')} style={btnPrimary}>I'll have this</button>
           <button style={btnGhost}>More ideas</button>
         </div>
       </div>
