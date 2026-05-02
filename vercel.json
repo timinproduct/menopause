@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd themaka && npm install --legacy-peer-deps && npm run build",
+  "outputDirectory": "themaka/dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
