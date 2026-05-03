@@ -4,6 +4,7 @@ import { OnboardingRouter } from './screens/OnboardingRouter';
 import { Home } from './screens/Home';
 import { Notification } from './screens/Notification';
 import { Login } from './screens/Login';
+import { FeedbackWidget } from './components/FeedbackWidget';
 
 export default function App() {
   const { userData } = useUser();
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <FeedbackWidget />
     </div>
   );
 }
